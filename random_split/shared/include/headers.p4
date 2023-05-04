@@ -39,7 +39,7 @@ header tcp_t{
     bit<4>  dataOffset;
     bit<4>  res;
     bit<1>  cwr;
-    bit<1>  ece;
+    bit<1>  ecn;
     bit<1>  urg;
     bit<1>  ack;
     bit<1>  psh;
@@ -66,6 +66,7 @@ struct headers {
 }
 
 struct metadata {
+    bit<16> tcpLength;
     bit<14> random_split_port;
     bit<14> random_split_group_id;
 }
