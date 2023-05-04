@@ -1,0 +1,8 @@
+#!/bin/sh
+echo "Adding our hosts to /etc/hosts"
+cat <<EOT >> /etc/hosts
+# HOSTS
+# CLIENT
+10.0.1.1 client
+10.0.4.2 server
+EOT
