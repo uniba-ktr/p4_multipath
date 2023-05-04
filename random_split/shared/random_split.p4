@@ -37,6 +37,7 @@ control MyIngress(inout headers hdr,
     }
 
     action set_nhop(macAddr_t dstAddr, egressSpec_t port) {
+        meta.tcpLength = hdr.ipv4.totalLen - (bit<16>)(hdr.ipv4.ihl)*4;
         hdr.ethernet.srcAddr = hdr.ethernet.dstAddr;
         hdr.ethernet.dstAddr = dstAddr;
         standard_metadata.egress_spec = port;
@@ -112,6 +113,40 @@ control MyComputeChecksum(inout headers hdr, inout metadata meta) {
               hdr.ipv4.dstAddr },
               hdr.ipv4.hdrChecksum,
               HashAlgorithm.csum16);
+        update_checksum_with_payload(hdr.tcp.isValid(),
+        {   hdr.ipv4.srcAddr,
+            hdr.ipv4.dstAddr,
+            8w0,
+            hdr.ipv4.protocol,
+            meta.tcpLength,
+            hdr.tcp.srcPort,
+            hdr.tcp.dstPort,
+            hdr.tcp.seqNo,
+            hdr.tcp.ackNo,
+            hdr.tcp.dataOffset,
+            hdr.tcp.res,
+            hdr.tcp.cwr,
+            hdr.tcp.ecn,
+            hdr.tcp.urg,
+            hdr.tcp.ack,
+            hdr.tcp.psh,
+            hdr.tcp.rst,
+            hdr.tcp.syn,
+            hdr.tcp.fin,
+            hdr.tcp.window,
+            hdr.tcp.urgentPtr},
+            hdr.tcp.checksum, HashAlgorithm.csum16);
+        update_checksum_with_payload(hdr.udp.isValid(),
+        {   hdr.ipv4.srcAddr,
+            hdr.ipv4.dstAddr,
+            8w0,
+            hdr.ipv4.protocol,
+            meta.tcpLength,
+            hdr.udp.srcPort,
+            hdr.udp.dstPort,
+            hdr.udp.length_,
+            },
+        hdr.udp.checksum, HashAlgorithm.csum16);
     }
 }
 
