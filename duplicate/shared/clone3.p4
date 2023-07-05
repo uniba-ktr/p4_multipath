@@ -87,7 +87,7 @@ control MyIngress(inout headers hdr,
             bit<32> hash_read3;
             bit<32> hash_read4;
             bit<32> new_hash;
-
+if (standard_metadata.ingress_port == 1 || standard_metadata.ingress_port == 2) {
          hash(new_hash, 
             HashAlgorithm.crc16, 
             (bit<32>)0, 
@@ -135,6 +135,7 @@ control MyIngress(inout headers hdr,
                 log_msg("NEW REGISTER WRITE");
                 shift_register(new_hash);
             }
+}
         }
     }
 }
