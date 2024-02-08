@@ -102,3 +102,10 @@ wireshark[image]="lscr.io/linuxserver/wireshark"
 ```
 
 After starting the laboratory with `kathara lstart`, a web browser can be opened on [localhost](http://localhost:3000/?login=true) and Wireshark can be accessed after its initialization. Use *eth1* to capture on the connected network.
+
+## Publication and Presentation
+The P4 Multipath transmissions concept is developed by [Computer Networks Group](https://www.uni-bamberg.de/ktr/). 
+
+Our publication can be found here:
+- <a href="https://opus.bibliothek.uni-wuerzburg.de/opus4-wuerzburg/frontdoor/deliver/index/docId/32209/file/Grossmann_Homeyer_P4_Networks_WueWoWas23_1570910104.pdf" target="_blank"> **Emulation of Multipath Transmissions in P4 Networks with Kathará**</a> (at WueWoWas 2023)
+- <a href="https://lsinfo3.github.io/WueWoWAS2023/assets/slides/tobias_homeyer.pdf" target="_blank">Presentation</a>
